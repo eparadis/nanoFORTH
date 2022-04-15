@@ -101,7 +101,7 @@ void N4VM::_init() {
     rp  = (U16*)&dic[msz - ssz];         /// * return stack pointer, grow upward
     sp  = (S16*)&dic[msz];               /// * parameter stack pointer, grows downward
 
-    show("nanoForth v1.4 ");             /// * show init prompt
+    show("nanoForth v1.42");             /// * show init prompt
 
     U16 adr = n4asm->reset();            /// * reload EEPROM and reset assembler
     if (adr != LFA_X) {                  /// * check autorun addr has been setup? (see SEX)
