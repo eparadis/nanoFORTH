@@ -11,7 +11,7 @@
  * @endcode
  */
 #include "nanoforth_asm.h"
-#if ARDUINO
+#if __AVR__
 #include <EEPROM.h>
 #else
 #include "mockrom.h"
@@ -463,7 +463,7 @@ void N4Asm::_list_voc()
 {
     const char *lst[] PROGMEM = { PRM, JMP, CMD };      // list of built-in primitives
     for (U8 i=0, n=0; i<3; i++) {
-#if ARDUINO
+#if __AVR__ 
         U8 sz = pgm_read_byte(reinterpret_cast<PGM_P>(lst[i]));
 #else
         U8 sz = *(lst[i]);

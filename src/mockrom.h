@@ -5,7 +5,7 @@
 #ifndef __SRC_EEPROM_H
 #define __SRC_EEPROM_H
 
-#if !ARDUINO
+#if !__AVR__
 static U8 _eeprom[N4_MEM_SZ];          ///< mock EEPROM storage
 class MockRom                          ///< mock EEPROM access class
 {

@@ -21,8 +21,11 @@ U8   N4Core::is_tracing()       { return _trc; }
 ///
 ///@name Console IO Functions with Cooperative Threading support
 ///@{
-#if ARDUINO
+#if __AVR__
 #include <avr/pgmspace.h>
+#endif
+
+#if ARDUINO
 ///
 ///> char input from console
 ///
@@ -39,7 +42,8 @@ void N4Core::d_chr(char c)     {
     }
 }
 void N4Core::d_adr(U16 a)      { d_nib(a>>8); d_nib((a>>4)&0xf); d_nib(a&0xf); }
-void N4Core::d_ptr(U8 *p)      { U16 a=(U16)p; d_chr('p'); d_adr(a); }
+//void N4Core::d_ptr(U8 *p)      { U16 a=(U16)p; d_chr('p'); d_adr(a); }
+void N4Core::d_ptr(U8 *p)      { d_chr('p'); d_chr('_'); d_chr('_'); d_chr('_'); }
 void N4Core::d_num(S16 n)      { _io->print(n); }
 #else
 int  Serial;                   // fake serial interface
@@ -70,7 +74,7 @@ void N4Core::d_mem(U8* base, U8 *p0, U16 sz, U8 delim)
 ///
 void N4Core::d_name(U8 op, const char *lst, U8 space)
 {
-#if ARDUINO
+#if __AVR__
     PGM_P p = reinterpret_cast<PGM_P>(lst)+1+op*3;
 #else
     U8 *p = (U8*)lst+1+op*3;
